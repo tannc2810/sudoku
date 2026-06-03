@@ -833,46 +833,47 @@ export default function App() {
     const isUnderScan = activeNum !== null && (hasRowMatch || hasColMatch || hasBlockMatch);
 
     // Outer grid line styles
-    const borderB = (r === 2 || r === 5) ? "border-b-3 border-b-slate-500" : (r === 8 ? "" : "border-b border-b-slate-800/80");
-    const borderR = (c === 2 || c === 5) ? "border-r-3 border-r-slate-500" : (c === 8 ? "" : "border-r border-r-slate-800/80");
+    const borderB = (r === 2 || r === 5) ? "border-b-3 border-b-slate-400" : (r === 8 ? "" : "border-b border-b-slate-200/60");
+    const borderR = (c === 2 || c === 5) ? "border-r-3 border-r-slate-400" : (c === 8 ? "" : "border-r border-r-slate-200/60");
     
     // Default base styles
-    let bgStyle = "bg-slate-900";
-    let textStyle = "text-indigo-400";
+    let bgStyle = "bg-white";
+    let textStyle = "text-indigo-600 font-semibold";
 
     if (isGiven) {
-      bgStyle = "bg-slate-900";
-      textStyle = "text-slate-100 font-bold";
+      bgStyle = "bg-white";
+      textStyle = "text-slate-900 font-extrabold";
     }
 
     // Correctness status
     const isIncorrect = autoCheck && val !== 0 && !isGiven && val !== solution[r]?.[c];
     if (isIncorrect) {
-      bgStyle = "bg-red-950/20";
-      textStyle = "text-red-400 font-semibold";
+      bgStyle = "bg-rose-50";
+      textStyle = "text-rose-600 font-bold";
     }
 
     // Under active scan line guide highlight - gentle backdrop overlay
     if (isUnderScan && !isSelected && !isIncorrect && !isSameValue) {
-      bgStyle = isGiven ? "bg-indigo-950/45" : "bg-indigo-950/35";
+      bgStyle = isGiven ? "bg-indigo-50/70" : "bg-indigo-50/45";
     }
 
     // Secondary highlights (selected cell guides)
     if (isRelated && !isSelected && !isIncorrect && !isSameValue && !isUnderScan) {
-      bgStyle = isGiven ? "bg-slate-800/40" : "bg-slate-800/35";
+      bgStyle = isGiven ? "bg-slate-50/70" : "bg-slate-50/45";
     }
 
     if (isSameValue && !isSelected && !isIncorrect) {
       bgStyle = isGiven 
-        ? "bg-indigo-600/25 ring-1 ring-indigo-500/30 ring-inset" 
-        : "bg-indigo-500/30 ring-1 ring-indigo-400/40 ring-inset";
+        ? "bg-indigo-100/90 ring-1 ring-indigo-200/60 ring-inset" 
+        : "bg-indigo-100 ring-1 ring-indigo-300/40 ring-inset";
       textStyle = isGiven 
-        ? "text-indigo-200 font-extrabold scale-105 transition-all duration-150" 
-        : "text-indigo-100 font-black scale-105 transition-all duration-150";
+        ? "text-indigo-800 font-black scale-105 transition-all duration-150" 
+        : "text-indigo-700 font-black scale-105 transition-all duration-150";
     }
 
     if (isSelected) {
-      bgStyle = "bg-indigo-600/30 ring-2 ring-indigo-500 ring-inset z-10";
+      bgStyle = "bg-indigo-600 ring-2 ring-indigo-500 ring-inset z-10 shadow-inner";
+      textStyle = "text-white font-extrabold";
     }
 
     return `relative flex items-center justify-center text-xl sm:text-2xl aspect-square w-full select-none cursor-pointer transition-all duration-150 ${bgStyle} ${textStyle} ${borderB} ${borderR}`;
@@ -901,16 +902,16 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-between p-2 sm:p-6 select-none font-sans max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center justify-between p-2 sm:p-6 select-none font-sans max-w-full overflow-x-hidden">
       {/* Upper Brand Header */}
-      <header className="w-full max-w-lg flex items-center justify-between border-b border-slate-800 pb-2 sm:pb-3 mb-2 sm:mb-3">
+      <header className="w-full max-w-lg flex items-center justify-between border-b border-slate-200 pb-2 sm:pb-3 mb-2 sm:mb-3">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <div className="bg-indigo-600 p-1.5 sm:p-2 rounded-xl text-white shadow-lg shadow-indigo-500/20">
             <Brain className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
           </div>
           <div>
-            <h1 className="text-lg sm:text-2xl font-black tracking-wider text-white leading-none">SUDOKU</h1>
-            <p className="text-[8px] sm:text-[11px] text-indigo-400 font-bold uppercase tracking-wider mt-0.5">GAME THƯ GIẢN ĐẦU ÓC</p>
+            <h1 className="text-lg sm:text-2xl font-black tracking-wider text-slate-900 leading-none">SUDOKU</h1>
+            <p className="text-[8px] sm:text-[11px] text-indigo-600 font-bold uppercase tracking-wider mt-0.5">GAME THƯ GIẢN ĐẦU ÓC</p>
           </div>
         </div>
 
@@ -927,8 +928,8 @@ export default function App() {
             }}
             className={`px-2 py-2 rounded-lg text-[10px] sm:text-xs font-mono border transition flex items-center gap-1 font-bold ${
               isMusicPlaying 
-                ? 'border-emerald-500/40 bg-emerald-950/30 text-emerald-400 hover:bg-emerald-950/50' 
-                : 'border-slate-800 text-slate-400 hover:bg-slate-900'
+                ? 'border-emerald-500 bg-emerald-50 text-emerald-700 hover:bg-emerald-100' 
+                : 'border-slate-200 text-slate-500 bg-white hover:bg-slate-50 hover:text-slate-700'
             }`}
             title="Bật/Tắt nhạc thiền không lời tập trung cao độ"
           >
@@ -939,8 +940,8 @@ export default function App() {
             onClick={() => setSoundEnabled(s => !s)}
             className={`p-2 rounded-lg text-xs font-mono border transition ${
               soundEnabled 
-                ? 'border-indigo-500/30 bg-indigo-950/20 text-indigo-400 hover:bg-indigo-950/40' 
-                : 'border-slate-800 text-slate-500 hover:bg-slate-900'
+                ? 'border-indigo-300 bg-indigo-50 text-indigo-600 hover:bg-indigo-100' 
+                : 'border-slate-200 text-slate-400 bg-white hover:bg-slate-50'
             }`}
             title="Bật/Tắt âm thanh"
           >
@@ -949,7 +950,7 @@ export default function App() {
           <button
             id="view-stats-btn"
             onClick={() => setShowStatsModal(true)}
-            className="p-2 border border-slate-800 rounded-lg hover:bg-slate-900 transition text-slate-300 flex items-center gap-1.5 text-xs sm:text-sm"
+            className="p-2 border border-slate-200 bg-white rounded-lg hover:bg-slate-50 hover:text-slate-800 transition text-slate-600 flex items-center gap-1.5 text-xs sm:text-sm"
           >
             <Trophy className="w-4 h-4 text-amber-500" />
             <span className="hidden sm:inline">Kỷ lục</span>
@@ -960,32 +961,32 @@ export default function App() {
       {/* Main Core Segment */}
       <main className="w-full max-w-lg flex-1 flex flex-col justify-center items-center gap-2.5 sm:gap-4">
         {/* Game Stats Bar */}
-        <div className="w-full flex items-center justify-between text-xs sm:text-sm font-mono text-slate-400 px-1">
-          <div className="flex items-center gap-2 bg-slate-900/50 py-1.5 px-3 rounded-full border border-slate-900">
-            <Clock className="w-4 h-4 text-indigo-400" />
-            <span className="text-slate-100 font-bold tracking-wider">{showStartScreen ? '--:--' : formatTime(timer)}</span>
+        <div className="w-full flex items-center justify-between text-xs sm:text-sm font-mono text-slate-500 px-1">
+          <div className="flex items-center gap-2 bg-white py-1.5 px-3 rounded-full border border-slate-200 shadow-sm">
+            <Clock className="w-4 h-4 text-indigo-600" />
+            <span className="text-slate-800 font-bold tracking-wider">{showStartScreen ? '--:--' : formatTime(timer)}</span>
             <button
               id="pause-timer-btn"
               onClick={handleTogglePause}
               disabled={showStartScreen || gameWon || gameOver || isGivenUp}
-              className="ml-1 text-slate-400 hover:text-white transition disabled:opacity-35"
+              className="ml-1 text-slate-400 hover:text-slate-700 transition disabled:opacity-35"
               title={isPaused ? 'Tiếp tục' : 'Tạm dừng'}
             >
               {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
             </button>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-900/50 py-1.5 px-3 rounded-full border border-slate-900">
-            <span className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wide">Lỗi:</span>
-            <span id="mistakes-counter" className={`font-mono font-bold text-xs sm:text-sm px-1 rounded ${
-              !showStartScreen && mistakes > 0 ? 'text-rose-400 animate-pulse bg-rose-500/10' : 'text-slate-300'
+          <div className="flex items-center gap-2 bg-white py-1.5 px-3 rounded-full border border-slate-200 shadow-sm">
+            <span className="text-[10px] sm:text-xs text-slate-500 font-bold uppercase tracking-wide">Lỗi:</span>
+            <span id="mistakes-counter" className={`font-mono font-bold text-xs sm:text-sm px-1.5 py-0.5 rounded ${
+              !showStartScreen && mistakes > 0 ? 'text-rose-600 animate-pulse bg-rose-50' : 'text-slate-700'
             }`}>
               {showStartScreen ? '0/5' : `${mistakes}/5`}
             </span>
           </div>
 
           {isMusicPlaying && (
-            <div className="flex items-center gap-2 bg-slate-900/50 py-1 px-2.5 rounded-full border border-slate-900 text-xs text-indigo-400">
+            <div className="flex items-center gap-2 bg-white py-1 px-2.5 rounded-full border border-slate-200 shadow-sm text-xs text-indigo-600">
               <span className="text-[10px]">🧘 Nhạc</span>
               <input
                 type="range"
@@ -994,21 +995,21 @@ export default function App() {
                 step="0.05"
                 value={musicVolume}
                 onChange={(e) => setMusicVolume(parseFloat(e.target.value))}
-                className="w-12 sm:w-16 h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                className="w-12 sm:w-16 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                 title="Âm lượng nhạc thiền"
               />
             </div>
           )}
 
           <div className="flex items-center gap-1">
-            <span className="text-xs uppercase">Tự kiểm lỗi:</span>
+            <span className="text-xs uppercase text-slate-500">Tự kiểm lỗi:</span>
             <button
               id="toggle-autocheck-btn"
               onClick={() => setAutoCheck(a => !a)}
               className={`px-2 py-1 rounded text-[11px] font-bold border transition ${
                 autoCheck 
-                  ? 'bg-emerald-950/40 text-emerald-400 border-emerald-500/30' 
-                  : 'bg-slate-905 bg-slate-900 text-slate-500 border-slate-800'
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-300 shadow-sm' 
+                  : 'bg-white text-slate-400 border-slate-200'
               }`}
             >
               {autoCheck ? "BẬT" : "TẮT"}
@@ -1017,7 +1018,7 @@ export default function App() {
         </div>
 
         {/* Difficulty Select Tabs */}
-        <div className="w-full grid grid-cols-4 gap-1.5 p-1 bg-slate-950/70 border border-slate-900 rounded-xl">
+        <div className="w-full grid grid-cols-4 gap-1.5 p-1 bg-slate-100 border border-slate-200 rounded-xl shadow-sm">
           {(['easy', 'medium', 'hard', 'expert'] as Difficulty[]).map((diff) => (
             <button
               key={diff}
@@ -1026,24 +1027,22 @@ export default function App() {
               className={`py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition ${
                 difficulty === diff
                   ? 'bg-indigo-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-slate-100'
+                  : 'text-slate-500 hover:text-slate-800'
               }`}
             >
               {diff === 'easy' ? 'Dễ' : diff === 'medium' ? 'Trung Bình' : diff === 'hard' ? 'Khó' : 'Chuyên Gia'}
             </button>
           ))}
         </div>
-
-        {/* Sudden Block/Pause Display or interactive Board Grid */}
-        <div className="w-full aspect-square relative rounded-2xl bg-slate-900 border-3 border-slate-700 shadow-2xl p-0 overflow-hidden">
+        <div className="w-full aspect-square relative rounded-2xl bg-white border-3 border-slate-300 shadow-xl p-0 overflow-hidden">
           {showStartScreen ? (
             /* Welcome & Setup Screen */
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-sm text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
-              <div className="bg-indigo-600/10 p-2 sm:p-2.5 rounded-full border border-indigo-500/30 text-indigo-400 mb-1.5 sm:mb-2.5 animate-pulse shrink-0">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-50/95 backdrop-blur-sm text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-indigo-50 p-2 sm:p-2.5 rounded-full border border-indigo-200 text-indigo-600 mb-1.5 sm:mb-2.5 animate-pulse shrink-0">
                 <Brain className="w-6 h-6 sm:w-7 sm:h-7" />
               </div>
-              <h2 className="text-base sm:text-lg font-black text-white tracking-wide uppercase shrink-0">Chọn Cấp Độ Chơi</h2>
-              <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 mb-2.5 sm:mb-4 max-w-[280px] sm:max-w-xs leading-relaxed shrink-0">
+              <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-wide uppercase shrink-0">Chọn Cấp Độ Chơi</h2>
+              <p className="text-[10px] sm:text-xs text-slate-600 mt-0.5 mb-2.5 sm:mb-4 max-w-[280px] sm:max-w-xs leading-relaxed shrink-0">
                 Chào mừng bạn bước vào trải nghiệm Sudoku thiền tịnh. Hãy lựa chọn cấp độ rèn luyện tâm trí phù hợp:
               </p>
 
@@ -1058,17 +1057,19 @@ export default function App() {
                     }}
                     className={`p-1.5 px-2 rounded-xl border transition-all text-xs text-left relative flex flex-col justify-between min-h-[46px] sm:min-h-[52px] ${
                       difficulty === diff
-                        ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-lg shadow-indigo-500/10'
-                        : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                        ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
+                        : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-800'
                     }`}
                   >
                     <div className="font-bold flex items-center justify-between w-full text-[10px] sm:text-[11px]">
                       <span>
                         {diff === 'easy' ? '⭐️ Dễ' : diff === 'medium' ? '⚡️ Trung bình' : diff === 'hard' ? '🔥 Khó' : '👑 Chuyên gia'}
                       </span>
-                      {difficulty === diff && <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-indigo-500 rounded-full" />}
+                      {difficulty === diff && <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
-                    <span className="text-[8px] sm:text-[9px] text-slate-500 font-light leading-tight mt-0.5 block">
+                    <span className={`text-[8px] sm:text-[9px] font-medium leading-tight mt-0.5 block ${
+                      difficulty === diff ? 'text-indigo-100' : 'text-slate-400'
+                    }`}>
                       {diff === 'easy' ? 'Phù hợp học hỏi giải trí' : diff === 'medium' ? 'Thử thách logic vừa vặn' : diff === 'hard' ? 'Suy luận logic sắc sảo' : 'Khơi nguồn tinh hoa trí tuệ'}
                     </span>
                   </button>
@@ -1081,54 +1082,54 @@ export default function App() {
                   startNewGame(difficulty);
                   setShowStartScreen(false);
                 }}
-                className="w-full max-w-[280px] sm:max-w-xs py-2 sm:py-2.5 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-1.5 active:scale-95 shrink-0"
+                className="w-full max-w-[280px] sm:max-w-xs py-2 sm:py-2.5 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-1.5 active:scale-95 shrink-0 animate-bounce"
               >
                 <Play className="w-4 h-4" /> BẮT ĐẦU CHƠI
               </button>
             </div>
           ) : isPaused ? (
             /* Blurred Pause Board Screen Overlay */
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md animate-fade-in text-center p-4 sm:p-5 w-full h-full select-none overflow-hidden">
-              <div className="bg-indigo-600/10 p-3 sm:p-4 rounded-full mb-2 sm:mb-3 border border-indigo-500/20 text-indigo-400 shrink-0">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md animate-fade-in text-center p-4 sm:p-5 w-full h-full select-none overflow-hidden">
+              <div className="bg-indigo-50 p-3 sm:p-4 rounded-full mb-2 sm:mb-3 border border-indigo-100 text-indigo-600 shrink-0">
                 <Pause className="w-6 h-6 sm:w-8 sm:h-8 animate-pulse" />
               </div>
-              <h2 className="text-base sm:text-lg font-bold mb-1 text-white shrink-0">Đang tạm dừng</h2>
-              <p className="text-[10px] sm:text-xs text-slate-400 mb-3 sm:mb-4 max-w-[240px] leading-relaxed shrink-0">
+              <h2 className="text-base sm:text-lg font-bold mb-1 text-slate-900 shrink-0">Đang tạm dừng</h2>
+              <p className="text-[10px] sm:text-xs text-slate-500 mb-3 sm:mb-4 max-w-[240px] leading-relaxed shrink-0">
                 Bảng Sudoku được ẩn để đảm bảo tính khách quan của trò chơi.
               </p>
               <button
                 id="resume-game-btn"
                 onClick={handleTogglePause}
-                className="px-5 py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold shadow-lg shadow-indigo-600/20 text-xs tracking-wide shrink-0"
+                className="px-5 py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold shadow-lg shadow-indigo-600/20 text-xs text-white tracking-wide shrink-0"
               >
                 Tiếp tục chơi
               </button>
             </div>
           ) : gameWon ? (
             /* Victory Complete Layout */
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
-              <div className="bg-amber-500/10 p-2 sm:p-3 rounded-full border border-amber-500/30 text-amber-500 mb-2 sm:mb-3 animate-bounce shrink-0">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-50/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-amber-50 p-2 sm:p-3 rounded-full border border-amber-200 text-amber-600 mb-2 sm:mb-3 animate-bounce shrink-0">
                 <Sparkles className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <h2 className="text-lg sm:text-2xl font-black text-white tracking-wide shrink-0">Chiến thắng! 🎉</h2>
-              <p className="text-[10px] sm:text-xs text-emerald-400 font-mono mt-0.5 mb-2.5 flex items-center gap-1 bg-emerald-950/30 px-2.5 py-0.5 rounded-full border border-emerald-500/20 shrink-0">
+              <h2 className="text-lg sm:text-2xl font-black text-slate-900 tracking-wide shrink-0">Chiến thắng! 🎉</h2>
+              <p className="text-[10px] sm:text-xs text-emerald-700 font-mono mt-0.5 mb-2.5 flex items-center gap-1 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 shrink-0">
                 <CheckCircle className="w-4 h-4" /> Hoàn thành xuất sắc!
               </p>
 
               {isNewBest && (
-                <div className="transform rotate-1 mb-2.5 sm:mb-3 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold flex items-center gap-1 shadow-lg shrink-0">
+                <div className="transform rotate-1 mb-2.5 sm:mb-3 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold flex items-center gap-1 shadow-md shrink-0">
                   <Award className="w-4 h-4 animate-spin" /> KỶ LỤC MỚI KHAI PHÁ!
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-2.5 w-full max-w-[240px] mb-3 sm:mb-4 text-left shrink-0">
-                <div className="bg-slate-900 border border-slate-800 p-1.5 px-2.5 rounded-xl">
-                  <div className="text-[8px] sm:text-[9px] text-slate-500 mb-0.5 uppercase tracking-wide">Cấp độ</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider">{difficulty === 'easy' ? 'Dễ' : difficulty === 'medium' ? 'Trung Bình' : difficulty === 'hard' ? 'Khó' : 'Chuyên Gia'}</div>
+                <div className="bg-white border border-slate-200 p-1.5 px-2.5 rounded-xl text-slate-700 shadow-sm">
+                  <div className="text-[8px] sm:text-[9px] text-slate-400 mb-0.5 uppercase tracking-wide font-bold">Cấp độ</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-slate-800 uppercase tracking-wider">{difficulty === 'easy' ? 'Dễ' : difficulty === 'medium' ? 'Trung Bình' : difficulty === 'hard' ? 'Khó' : 'Chuyên Gia'}</div>
                 </div>
-                <div className="bg-slate-900 border border-slate-800 p-1.5 px-2.5 rounded-xl">
-                  <div className="text-[8px] sm:text-[9px] text-slate-500 mb-0.5 uppercase tracking-wide">Thời gian</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-white font-mono">{formatTime(timer)}</div>
+                <div className="bg-white border border-slate-200 p-1.5 px-2.5 rounded-xl text-slate-700 shadow-sm">
+                  <div className="text-[8px] sm:text-[9px] text-slate-400 mb-0.5 uppercase tracking-wide font-bold">Thời gian</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-slate-800 font-mono">{formatTime(timer)}</div>
                 </div>
               </div>
 
@@ -1149,14 +1150,14 @@ export default function App() {
                       setShowStartScreen(true);
                       setGameWon(false);
                     }}
-                    className="flex-1 py-1 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-300"
+                    className="flex-1 py-1 sm:py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-700"
                   >
                     Đổi Cấp Độ
                   </button>
                   <button
                     id="win-share-btn"
                     onClick={copyShareText}
-                    className="flex-1 py-1 sm:py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-300"
+                    className="flex-1 py-1 sm:py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-700"
                   >
                     Chia Sẻ
                   </button>
@@ -1165,12 +1166,12 @@ export default function App() {
             </div>
           ) : gameOver ? (
             /* Game Over Screen Overlay */
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
-              <div className="bg-rose-500/10 p-2 sm:p-3 rounded-full border border-rose-500/30 text-rose-500 mb-2 sm:mb-3 animate-bounce shrink-0">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-50/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-rose-50 p-2 sm:p-3 rounded-full border border-rose-200 text-rose-600 mb-2 sm:mb-3 animate-bounce shrink-0">
                 <XCircle className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <h2 className="text-base sm:text-lg font-black text-rose-500 tracking-wide shrink-0">Trò chơi kết thúc!</h2>
-              <p className="text-[10px] sm:text-xs text-slate-400 mt-1 mb-3 sm:mb-4 max-w-[220px] sm:max-w-xs leading-relaxed shrink-0">
+              <h2 className="text-base sm:text-lg font-black text-rose-600 tracking-wide shrink-0">Trò chơi kết thúc!</h2>
+              <p className="text-[10px] sm:text-xs text-slate-600 mt-1 mb-3 sm:mb-4 max-w-[220px] sm:max-w-xs leading-relaxed shrink-0">
                 Bạn đã phạm lỗi quá 5 lần (5/5). Hãy rèn luyện thêm và thử lại nhé!
               </p>
 
@@ -1178,7 +1179,7 @@ export default function App() {
                 <button
                   id="gameover-restart-btn"
                   onClick={() => startNewGame()}
-                  className="w-full py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-[10px] sm:text-xs text-white shadow-lg shadow-indigo-600/20"
+                  className="w-full py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 text-white transition rounded-xl font-bold text-[10px] sm:text-xs shadow-lg shadow-indigo-600/20"
                 >
                   Chơi Lại Ván Mới
                 </button>
@@ -1186,12 +1187,12 @@ export default function App() {
             </div>
           ) : isGivenUp ? (
             /* Give Up & Encouraging screen */
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
-              <div className="bg-amber-500/10 p-2 sm:p-3 rounded-full border border-amber-500/30 text-amber-500 mb-2 sm:mb-2.5 animate-bounce shrink-0">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-50/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-amber-50 p-2 sm:p-3 rounded-full border border-amber-200 text-amber-600 mb-2 sm:mb-2.5 animate-bounce shrink-0">
                 <Sparkles className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <h2 className="text-base sm:text-lg font-black text-amber-500 tracking-wide uppercase shrink-0">Kiên Trì Là Sức Mạnh! 🕊️</h2>
-              <p className="text-[9px] sm:text-[11px] text-slate-300 mt-1 mb-3 sm:mb-4 max-w-[260px] leading-relaxed px-1 shrink-0">
+              <h2 className="text-base sm:text-lg font-black text-amber-650 tracking-wide uppercase shrink-0">Kiên Trì Là Sức Mạnh! 🕊️</h2>
+              <p className="text-[9px] sm:text-[11px] text-slate-755 text-slate-600 mt-1 mb-3 sm:mb-4 max-w-[260px] leading-relaxed px-1 shrink-0">
                 Bỏ cuộc hôm nay chỉ là một bước đệm giúp bạn tập trung và kiên trì hơn vào ngày mai. Đừng nản lòng nhé! Trí tuệ được rèn giũa qua từng thử thách, mỗi lần đối mặt với bảng số là một lần tâm trí bạn trở nên tinh thông hơn. Hẹn lần sau bạn chắc chắn sẽ vượt qua bản thân, chinh phục những nấc thang độ khó cao hơn!
               </p>
 
@@ -1202,7 +1203,7 @@ export default function App() {
                     startNewGame(difficulty);
                     setIsGivenUp(false);
                   }}
-                  className="w-full py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-[10px] sm:text-xs text-white shadow-lg shadow-indigo-600/20 shrink-0"
+                  className="w-full py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 text-white transition rounded-xl font-bold text-[10px] sm:text-xs shadow-lg shadow-indigo-600/20 shrink-0"
                 >
                   Thử Sức Lại Ván Mới
                 </button>
@@ -1212,7 +1213,7 @@ export default function App() {
                     setShowStartScreen(true);
                     setIsGivenUp(false);
                   }}
-                  className="w-full py-1 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-300 shrink-0"
+                  className="w-full py-1 sm:py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-700 shrink-0"
                 >
                   Thay Đổi Cấp Độ
                 </button>
@@ -1250,11 +1251,11 @@ export default function App() {
                       <span className="scale-95 transform sm:scale-100 z-10">{val}</span>
                     ) : (
                       /* Display Pencil Marks Notes inside cell */
-                      <div className="grid grid-cols-3 grid-rows-3 w-full h-full p-0.5 text-[8px] sm:text-[10px] leading-none text-slate-400 font-light font-mono z-10">
+                      <div className="grid grid-cols-3 grid-rows-3 w-full h-full p-0.5 text-[8px] sm:text-[10px] leading-none text-slate-500 font-medium font-mono z-10">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                          <div key={num} className="flex items-center justify-center">
-                            {cellNotes.includes(num) ? num : ""}
-                          </div>
+                           <div key={num} className="flex items-center justify-center">
+                             {cellNotes.includes(num) ? num : ""}
+                           </div>
                         ))}
                       </div>
                     )}
@@ -1275,10 +1276,10 @@ export default function App() {
               setIsNotesMode(prev => !prev);
               playTone(600, 'sine', 0.05);
             }}
-            className={`flex flex-col items-center justify-center p-2 rounded-xl border transition ${
+            className={`flex flex-col items-center justify-center p-2 rounded-xl border transition shadow-sm ${
               isNotesMode
                 ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/10'
-                : 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800'
+                : 'bg-white border-slate-200 text-slate-600 hover:text-indigo-600 hover:bg-slate-50'
             }`}
           >
             <div className="relative">
@@ -1287,7 +1288,7 @@ export default function App() {
                 <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping" />
               )}
             </div>
-            <span className="text-[9px] sm:text-xs font-medium mt-1">Ghi chú</span>
+            <span className="text-[9px] sm:text-xs font-bold mt-1">Ghi chú</span>
           </button>
 
           {/* Erase Tool */}
@@ -1295,10 +1296,10 @@ export default function App() {
             id="tool-erase-btn"
             onClick={handleErase}
             disabled={!selectedCell}
-            className="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition disabled:opacity-30 disabled:pointer-events-none"
+            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-rose-600 hover:bg-slate-50 transition shadow-sm disabled:opacity-30 disabled:pointer-events-none"
           >
-            <Trash2 className="w-4 h-4 sm:w-5 h-5 text-rose-400" />
-            <span className="text-[9px] sm:text-xs font-medium mt-1">Xóa</span>
+            <Trash2 className="w-4 h-4 sm:w-5 h-5 text-rose-500" />
+            <span className="text-[9px] sm:text-xs font-bold mt-1">Xóa</span>
           </button>
 
           {/* Hint Tool */}
@@ -1306,15 +1307,15 @@ export default function App() {
             id="tool-hint-btn"
             onClick={handleHint}
             disabled={!selectedCell || (selectedCell && initialBoard[selectedCell[0]]?.[selectedCell[1]] !== 0)}
-            className="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition disabled:opacity-30 disabled:pointer-events-none"
+            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-amber-600 hover:bg-slate-50 transition shadow-sm disabled:opacity-30 disabled:pointer-events-none"
           >
             <div className="relative">
-              <Lightbulb className="w-4 h-4 sm:w-5 h-5 text-amber-400 animate-pulse" />
-              <span className="absolute -top-1.5 -right-1.5 bg-amber-500 text-[8px] border border-slate-950 font-bold px-1 rounded-full text-slate-950">
+              <Lightbulb className="w-4 h-4 sm:w-5 h-5 text-amber-500 animate-pulse" />
+              <span className="absolute -top-1.5 -right-1.5 bg-amber-500 text-[8px] border border-white font-bold px-1.5 rounded-full text-white">
                 {hintsUsed}
               </span>
             </div>
-            <span className="text-[9px] sm:text-xs font-medium mt-1">Gợi ý</span>
+            <span className="text-[9px] sm:text-xs font-bold mt-1">Gợi ý</span>
           </button>
 
           {/* Undo Action */}
@@ -1322,10 +1323,10 @@ export default function App() {
             id="tool-undo-btn"
             onClick={handleUndo}
             disabled={undoStack.length === 0}
-            className="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition disabled:opacity-30 disabled:pointer-events-none"
+            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition shadow-sm disabled:opacity-30 disabled:pointer-events-none"
           >
-            <RotateCcw className="w-4 h-4 sm:w-5 h-5 text-indigo-400" />
-            <span className="text-[9px] sm:text-xs font-medium mt-1">Hoàn tác</span>
+            <RotateCcw className="w-4 h-4 sm:w-5 h-5 text-indigo-500" />
+            <span className="text-[9px] sm:text-xs font-bold mt-1">Hoàn tác</span>
           </button>
 
           {/* Redo Action */}
@@ -1333,10 +1334,10 @@ export default function App() {
             id="tool-redo-btn"
             onClick={handleRedo}
             disabled={redoStack.length === 0}
-            className="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition disabled:opacity-30 disabled:pointer-events-none"
+            className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition shadow-sm disabled:opacity-30 disabled:pointer-events-none"
           >
-            <RotateCw className="w-4 h-4 sm:w-5 h-5 text-indigo-400" />
-            <span className="text-[9px] sm:text-xs font-medium mt-1">Kế tiếp</span>
+            <RotateCw className="w-4 h-4 sm:w-5 h-5 text-indigo-500" />
+            <span className="text-[9px] sm:text-xs font-bold mt-1">Kế tiếp</span>
           </button>
         </div>
 
@@ -1360,18 +1361,18 @@ export default function App() {
                   key={num}
                   id={`keypad-number-${num}`}
                   onClick={() => handleKeypadClick(num)}
-                  className={`py-1.5 sm:py-3 justify-center flex flex-col items-center text-lg sm:text-2xl font-black rounded-xl transition-all relative ${
+                  className={`py-1.5 sm:py-3 justify-center flex flex-col items-center text-lg sm:text-2xl font-black rounded-xl transition-all relative shadow-sm hover:shadow ${
                     isActiveHighlight
-                      ? 'bg-indigo-600 border border-indigo-400 text-white cursor-pointer ring-2 ring-indigo-400 ring-offset-2 ring-offset-slate-950 scale-105'
+                      ? 'bg-indigo-600 border border-indigo-500 text-white cursor-pointer ring-2 ring-indigo-500 ring-offset-2 ring-offset-slate-50 scale-105 shadow-md'
                       : isFull 
-                        ? 'bg-slate-950/40 border border-slate-950 text-slate-600 hover:bg-slate-950/60 cursor-pointer'
-                        : 'bg-slate-900 border border-slate-800 hover:bg-slate-800 text-white cursor-pointer active:scale-95'
+                        ? 'bg-slate-100 border border-slate-200 text-slate-300 cursor-pointer hover:bg-slate-150'
+                        : 'bg-white border border-slate-200 hover:bg-slate-50 text-slate-805 text-slate-800 cursor-pointer active:scale-95'
                   }`}
                 >
-                  <span className={isActiveHighlight ? 'text-white' : isFull ? 'text-slate-600' : 'text-slate-100'}>{num}</span>
+                  <span className={isActiveHighlight ? 'text-white' : isFull ? 'text-slate-300' : 'text-slate-800'}>{num}</span>
                   {/* Remaining places badge indicator */}
                   <span className={`text-[9px] sm:text-xs font-mono font-bold leading-none mt-0.5 tracking-tight ${
-                    isActiveHighlight ? 'text-indigo-200' : isFull ? 'text-slate-700/80 font-normal' : 'text-indigo-400'
+                    isActiveHighlight ? 'text-indigo-200' : isFull ? 'text-slate-400/50 font-normal' : 'text-indigo-600'
                   }`}>
                     ({remaining})
                   </span>
@@ -1382,13 +1383,13 @@ export default function App() {
         </div>
 
         {/* Global Reset / Restart trigger */}
-        <div className="w-full flex justify-between items-center text-xs text-slate-505 text-slate-400 px-1 border-t border-slate-900 pt-3">
+        <div className="w-full flex justify-between items-center text-xs text-slate-500 px-1 border-t border-slate-200 pt-3">
           <div className="flex items-center gap-1.5">
             <button
               id="giveup-game-btn"
               onClick={handleGiveUp}
               disabled={showStartScreen || isGivenUp || gameWon || gameOver}
-              className="flex items-center gap-1 text-rose-400 hover:text-rose-300 font-bold transition disabled:opacity-20 disabled:pointer-events-none"
+              className="flex items-center gap-1 text-rose-600 hover:text-rose-700 font-bold transition disabled:opacity-20 disabled:pointer-events-none"
               title="Xin thua và xem lời khuyên"
             >
               🏳️ Xin Thua (Bỏ Cuộc)
@@ -1418,7 +1419,7 @@ export default function App() {
                 setGameOver(false);
               }
             }}
-            className="flex items-center gap-1 text-indigo-400 hover:text-indigo-300 font-bold transition"
+            className="flex items-center gap-1 text-indigo-650 text-indigo-600 hover:text-indigo-750 hover:text-indigo-700 font-bold transition"
           >
             <RefreshCw className="w-3.5 h-3.5" /> {showStartScreen || isGivenUp || gameWon || gameOver ? "Đổi Cấp Độ" : "Tạo Ván Mới"}
           </button>
@@ -1427,9 +1428,9 @@ export default function App() {
 
       {/* Stats Record Modal */}
       {showStatsModal && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-30 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 shadow-2xl relative animate-scale-up">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-30 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-6 shadow-2xl relative animate-scale-up">
+            <h3 className="text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
               <Trophy className="w-5 h-5 text-amber-500" /> Kỷ Lục Đạt Được
             </h3>
 
@@ -1442,9 +1443,9 @@ export default function App() {
               ].map((item) => {
                 const record = bestTimes[item.key as keyof BestTimes];
                 return (
-                  <div key={item.key} className="flex justify-between items-center p-2 bg-slate-950/50 rounded-lg border border-slate-950">
-                    <span className="text-slate-400 font-medium text-sm">{item.label}</span>
-                    <span className="text-white font-mono font-bold">
+                  <div key={item.key} className="flex justify-between items-center p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                    <span className="text-slate-500 font-medium text-sm">{item.label}</span>
+                    <span className="text-slate-800 font-mono font-bold">
                       {record !== null ? formatTime(record) : '--:--'}
                     </span>
                   </div>
@@ -1456,14 +1457,14 @@ export default function App() {
               <button
                 id="reset-stats-btn"
                 onClick={resetBestTimes}
-                className="flex-1 py-2 text-xs bg-red-950/20 text-red-400 hover:bg-red-950/40 hover:text-red-300 border border-red-900/30 rounded-xl transition"
+                className="flex-1 py-2 text-xs bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded-xl transition font-bold"
               >
                 Xóa Kỷ Lục
               </button>
               <button
                 id="close-stats-modal-btn"
                 onClick={() => setShowStatsModal(false)}
-                className="flex-1 py-2 text-xs bg-slate-850 bg-slate-800 hover:bg-slate-700 transition rounded-xl text-white font-medium"
+                className="flex-1 py-2 text-xs bg-slate-100 hover:bg-slate-200 border border-slate-200 transition rounded-xl text-slate-700 font-bold"
               >
                 Đóng
               </button>
@@ -1474,19 +1475,19 @@ export default function App() {
 
       {/* Custom Confirmation Modal */}
       {confirmModal && (
-        <div id="custom-confirm-modal" className="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-sm p-5 sm:p-6 shadow-2xl relative animate-scale-up">
-            <h3 className="text-base sm:text-lg font-black text-white mb-2 flex items-center gap-2 uppercase tracking-wide">
+        <div id="custom-confirm-modal" className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white border border-slate-200 rounded-xl w-full max-w-sm p-5 sm:p-6 shadow-2xl relative animate-scale-up">
+            <h3 className="text-base sm:text-lg font-black text-slate-950 mb-2 flex items-center gap-2 uppercase tracking-wide">
               {confirmModal.title}
             </h3>
-            <p className="text-xs sm:text-sm text-slate-400 mb-6 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
               {confirmModal.message}
             </p>
             <div className="flex gap-2.5">
               <button
                 id="custom-confirm-cancel-btn"
                 onClick={() => setConfirmModal(null)}
-                className="flex-1 py-2.5 text-xs bg-slate-800 hover:bg-slate-700 transition rounded-xl text-slate-300 font-bold cursor-pointer"
+                className="flex-1 py-2.5 text-xs bg-slate-100 hover:bg-slate-200 border border-slate-200 transition rounded-xl text-slate-700 font-bold cursor-pointer"
               >
                 {confirmModal.cancelText}
               </button>
@@ -1504,7 +1505,7 @@ export default function App() {
 
       {/* Custom Toast Notification */}
       {toastMessage && (
-        <div id="custom-toast" className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-slate-800 text-indigo-300 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold animate-fade-in">
+        <div id="custom-toast" className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-bold animate-fade-in border border-slate-800">
           <span>✨ {toastMessage}</span>
         </div>
       )}
