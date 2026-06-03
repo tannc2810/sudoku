@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Sudoku",
+  "description": "A beautiful, fully interactive Sudoku game with multiple difficulties, cell highlights, notes mode, and auto-checking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
