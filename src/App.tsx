@@ -1035,23 +1035,19 @@ export default function App() {
         </div>
 
         {/* Sudden Block/Pause Display or interactive Board Grid */}
-        <div className={`w-full relative rounded-2xl bg-slate-900 border-3 border-slate-700 shadow-2xl p-0 overflow-hidden ${
-          (!showStartScreen && !isPaused && !gameWon && !gameOver && !isGivenUp) 
-            ? 'aspect-square' 
-            : ''
-        }`}>
+        <div className="w-full aspect-square relative rounded-2xl bg-slate-900 border-3 border-slate-700 shadow-2xl p-0 overflow-hidden">
           {showStartScreen ? (
             /* Welcome & Setup Screen */
-            <div className="relative z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-sm text-center p-5 sm:p-6 py-6 sm:py-8 animate-fade-in w-full min-h-[355px] sm:min-h-[420px]">
-              <div className="bg-indigo-600/10 p-3 sm:p-4 rounded-full border border-indigo-500/30 text-indigo-400 mb-2 sm:mb-4 animate-pulse shrink-0">
-                <Brain className="w-8 h-8 sm:w-10 sm:h-10" />
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-sm text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-indigo-600/10 p-2 sm:p-2.5 rounded-full border border-indigo-500/30 text-indigo-400 mb-1.5 sm:mb-2.5 animate-pulse shrink-0">
+                <Brain className="w-6 h-6 sm:w-7 sm:h-7" />
               </div>
-              <h2 className="text-lg sm:text-2xl font-black text-white tracking-wide uppercase">Chọn Cấp Độ Chơi</h2>
-              <p className="text-[11px] sm:text-sm text-slate-400 mt-1 mb-4 sm:mb-6 max-w-xs leading-relaxed shrink-0">
+              <h2 className="text-base sm:text-lg font-black text-white tracking-wide uppercase shrink-0">Chọn Cấp Độ Chơi</h2>
+              <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 mb-2.5 sm:mb-4 max-w-[280px] sm:max-w-xs leading-relaxed shrink-0">
                 Chào mừng bạn bước vào trải nghiệm Sudoku thiền tịnh. Hãy lựa chọn cấp độ rèn luyện tâm trí phù hợp:
               </p>
 
-              <div className="grid grid-cols-2 gap-2 sm:gap-2.5 w-full max-w-sm mb-4 sm:mb-6 shrink-0">
+              <div className="grid grid-cols-2 gap-2 w-full max-w-[280px] sm:max-w-xs mb-3 sm:mb-4 shrink-0">
                 {(['easy', 'medium', 'hard', 'expert'] as Difficulty[]).map((diff) => (
                    <button
                     key={diff}
@@ -1060,19 +1056,19 @@ export default function App() {
                       setDifficulty(diff);
                       playTone(392, 'sine', 0.05);
                     }}
-                    className={`p-2 sm:p-2.5 rounded-xl border transition-all text-xs text-left relative flex flex-col justify-between min-h-[58px] sm:min-h-[64px] ${
+                    className={`p-1.5 px-2 rounded-xl border transition-all text-xs text-left relative flex flex-col justify-between min-h-[46px] sm:min-h-[52px] ${
                       difficulty === diff
                         ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-lg shadow-indigo-500/10'
                         : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
                     }`}
                   >
-                    <div className="font-bold flex items-center justify-between w-full text-[11px] sm:text-xs">
+                    <div className="font-bold flex items-center justify-between w-full text-[10px] sm:text-[11px]">
                       <span>
                         {diff === 'easy' ? '⭐️ Dễ' : diff === 'medium' ? '⚡️ Trung bình' : diff === 'hard' ? '🔥 Khó' : '👑 Chuyên gia'}
                       </span>
-                      {difficulty === diff && <span className="absolute top-2 sm:top-2.5 right-2 sm:right-2.5 w-1.5 h-1.5 bg-indigo-550 bg-indigo-500 rounded-full" />}
+                      {difficulty === diff && <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-indigo-500 rounded-full" />}
                     </div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-400 font-light leading-snug mt-1 block">
+                    <span className="text-[8px] sm:text-[9px] text-slate-500 font-light leading-tight mt-0.5 block">
                       {diff === 'easy' ? 'Phù hợp học hỏi giải trí' : diff === 'medium' ? 'Thử thách logic vừa vặn' : diff === 'hard' ? 'Suy luận logic sắc sảo' : 'Khơi nguồn tinh hoa trí tuệ'}
                     </span>
                   </button>
@@ -1085,82 +1081,82 @@ export default function App() {
                   startNewGame(difficulty);
                   setShowStartScreen(false);
                 }}
-                className="w-full max-w-xs py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 active:scale-95 shrink-0"
+                className="w-full max-w-[280px] sm:max-w-xs py-2 sm:py-2.5 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-1.5 active:scale-95 shrink-0"
               >
                 <Play className="w-4 h-4" /> BẮT ĐẦU CHƠI
               </button>
             </div>
           ) : isPaused ? (
             /* Blurred Pause Board Screen Overlay */
-            <div className="relative z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md animate-fade-in text-center p-5 sm:p-6 py-6 sm:py-8 w-full min-h-[355px] sm:min-h-[420px]">
-              <div className="bg-indigo-600/10 p-4 sm:p-5 rounded-full mb-3 sm:mb-4 border border-indigo-500/20 text-indigo-400 shrink-0">
-                <Pause className="w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md animate-fade-in text-center p-4 sm:p-5 w-full h-full select-none overflow-hidden">
+              <div className="bg-indigo-600/10 p-3 sm:p-4 rounded-full mb-2 sm:mb-3 border border-indigo-500/20 text-indigo-400 shrink-0">
+                <Pause className="w-6 h-6 sm:w-8 sm:h-8 animate-pulse" />
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold mb-1 text-white shrink-0">Đang tạm dừng</h2>
-              <p className="text-xs sm:text-sm text-slate-400 mb-4 sm:mb-6 max-w-xs leading-relaxed shrink-0">
+              <h2 className="text-base sm:text-lg font-bold mb-1 text-white shrink-0">Đang tạm dừng</h2>
+              <p className="text-[10px] sm:text-xs text-slate-400 mb-3 sm:mb-4 max-w-[240px] leading-relaxed shrink-0">
                 Bảng Sudoku được ẩn để đảm bảo tính khách quan của trò chơi.
               </p>
               <button
                 id="resume-game-btn"
                 onClick={handleTogglePause}
-                className="px-6 py-2 sm:py-2.5 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold shadow-lg shadow-indigo-600/20 text-xs sm:text-sm tracking-wide shrink-0"
+                className="px-5 py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold shadow-lg shadow-indigo-600/20 text-xs tracking-wide shrink-0"
               >
                 Tiếp tục chơi
               </button>
             </div>
           ) : gameWon ? (
             /* Victory Complete Layout */
-            <div className="relative z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-5 sm:p-6 py-6 sm:py-8 animate-fade-in w-full min-h-[355px] sm:min-h-[420px]">
-              <div className="bg-amber-500/10 p-3 sm:p-4 rounded-full border border-amber-500/30 text-amber-500 mb-3 sm:mb-4 animate-bounce shrink-0">
-                <Sparkles className="w-8 h-8 sm:w-10 sm:h-10" />
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-amber-500/10 p-2 sm:p-3 rounded-full border border-amber-500/30 text-amber-500 mb-2 sm:mb-3 animate-bounce shrink-0">
+                <Sparkles className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <h2 className="text-xl sm:text-3xl font-black text-white tracking-wide shrink-0">Chiến thắng! 🎉</h2>
-              <p className="text-[11px] sm:text-sm text-emerald-400 font-mono mt-1 mb-3 sm:mb-4 flex items-center gap-1.5 bg-emerald-950/30 px-3 py-1 rounded-full border border-emerald-500/20 shrink-0">
+              <h2 className="text-lg sm:text-2xl font-black text-white tracking-wide shrink-0">Chiến thắng! 🎉</h2>
+              <p className="text-[10px] sm:text-xs text-emerald-400 font-mono mt-0.5 mb-2.5 flex items-center gap-1 bg-emerald-950/30 px-2.5 py-0.5 rounded-full border border-emerald-500/20 shrink-0">
                 <CheckCircle className="w-4 h-4" /> Hoàn thành xuất sắc!
               </p>
 
               {isNewBest && (
-                <div className="transform rotate-2 mb-3 sm:mb-4 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center gap-1.5 shadow-lg shrink-0">
+                <div className="transform rotate-1 mb-2.5 sm:mb-3 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-bold flex items-center gap-1 shadow-lg shrink-0">
                   <Award className="w-4 h-4 animate-spin" /> KỶ LỤC MỚI KHAI PHÁ!
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-xs mb-4 sm:mb-6 text-left shrink-0">
-                <div className="bg-slate-900 border border-slate-800 p-2.5 sm:p-3 rounded-xl">
-                  <div className="text-[10px] sm:text-xs text-slate-500 mb-0.5 uppercase tracking-wide">Cấp độ</div>
-                  <div className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">{difficulty === 'easy' ? 'Dễ' : difficulty === 'medium' ? 'Trung Bình' : difficulty === 'hard' ? 'Khó' : 'Chuyên Gia'}</div>
+              <div className="grid grid-cols-2 gap-2.5 w-full max-w-[240px] mb-3 sm:mb-4 text-left shrink-0">
+                <div className="bg-slate-900 border border-slate-800 p-1.5 px-2.5 rounded-xl">
+                  <div className="text-[8px] sm:text-[9px] text-slate-500 mb-0.5 uppercase tracking-wide">Cấp độ</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider">{difficulty === 'easy' ? 'Dễ' : difficulty === 'medium' ? 'Trung Bình' : difficulty === 'hard' ? 'Khó' : 'Chuyên Gia'}</div>
                 </div>
-                <div className="bg-slate-900 border border-slate-800 p-2.5 sm:p-3 rounded-xl">
-                  <div className="text-[10px] sm:text-xs text-slate-500 mb-0.5 uppercase tracking-wide">Thời gian</div>
-                  <div className="text-xs sm:text-sm font-bold text-white font-mono">{formatTime(timer)}</div>
+                <div className="bg-slate-900 border border-slate-800 p-1.5 px-2.5 rounded-xl">
+                  <div className="text-[8px] sm:text-[9px] text-slate-500 mb-0.5 uppercase tracking-wide">Thời gian</div>
+                  <div className="text-[10px] sm:text-xs font-bold text-white font-mono">{formatTime(timer)}</div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 w-full max-w-xs shrink-0">
+              <div className="flex flex-col gap-1.5 w-full max-w-[240px] shrink-0">
                 <button
                   id="win-restart-btn"
                   onClick={() => {
                     startNewGame(difficulty);
                   }}
-                  className="w-full py-2 sm:py-2.5 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-xs sm:text-sm text-white flex items-center justify-center gap-1.5"
+                  className="w-full py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-[10px] sm:text-xs text-white flex items-center justify-center gap-1"
                 >
-                  <Play className="w-4 h-4" /> Tiếp tục chơi cùng cấp độ
+                  <Play className="w-3.5 h-3.5" /> Tiếp tục chơi cùng cấp độ
                 </button>
-                <div className="flex gap-2 w-full">
+                <div className="flex gap-1.5 w-full">
                   <button
                     id="win-change-diff-btn"
                     onClick={() => {
                       setShowStartScreen(true);
                       setGameWon(false);
                     }}
-                    className="flex-1 py-1.5 sm:py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition rounded-xl font-medium text-[11px] sm:text-xs text-slate-300"
+                    className="flex-1 py-1 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-300"
                   >
                     Đổi Cấp Độ
                   </button>
                   <button
                     id="win-share-btn"
                     onClick={copyShareText}
-                    className="flex-1 py-1.5 sm:py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition rounded-xl font-medium text-[11px] sm:text-xs text-slate-300"
+                    className="flex-1 py-1 sm:py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-300"
                   >
                     Chia Sẻ
                   </button>
@@ -1169,20 +1165,20 @@ export default function App() {
             </div>
           ) : gameOver ? (
             /* Game Over Screen Overlay */
-            <div className="relative z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-5 sm:p-6 py-6 sm:py-8 animate-fade-in w-full min-h-[355px] sm:min-h-[420px]">
-              <div className="bg-rose-500/10 p-3 sm:p-4 rounded-full border border-rose-500/30 text-rose-500 mb-3 sm:mb-4 animate-bounce shrink-0">
-                <XCircle className="w-8 h-8 sm:w-10 sm:h-10" />
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-rose-500/10 p-2 sm:p-3 rounded-full border border-rose-500/30 text-rose-500 mb-2 sm:mb-3 animate-bounce shrink-0">
+                <XCircle className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <h2 className="text-xl sm:text-3xl font-black text-rose-500 tracking-wide shrink-0">Trò chơi kết thúc!</h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1 mb-4 sm:mb-6 max-w-xs leading-relaxed shrink-0">
+              <h2 className="text-base sm:text-lg font-black text-rose-500 tracking-wide shrink-0">Trò chơi kết thúc!</h2>
+              <p className="text-[10px] sm:text-xs text-slate-400 mt-1 mb-3 sm:mb-4 max-w-[220px] sm:max-w-xs leading-relaxed shrink-0">
                 Bạn đã phạm lỗi quá 5 lần (5/5). Hãy rèn luyện thêm và thử lại nhé!
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-2 w-full max-w-xs shrink-0">
+              <div className="flex flex-col gap-2 w-full max-w-[225px] shrink-0">
                 <button
                   id="gameover-restart-btn"
                   onClick={() => startNewGame()}
-                  className="w-full py-2 sm:py-2.5 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/20"
+                  className="w-full py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-[10px] sm:text-xs text-white shadow-lg shadow-indigo-600/20"
                 >
                   Chơi Lại Ván Mới
                 </button>
@@ -1190,23 +1186,23 @@ export default function App() {
             </div>
           ) : isGivenUp ? (
             /* Give Up & Encouraging screen */
-            <div className="relative z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-5 sm:p-6 py-6 sm:py-8 animate-fade-in w-full min-h-[355px] sm:min-h-[420px]">
-              <div className="bg-amber-500/10 p-3 sm:p-4 rounded-full border border-amber-500/30 text-amber-500 mb-3 sm:mb-4 animate-bounce shrink-0">
-                <Sparkles className="w-8 h-8 sm:w-10 sm:h-10" />
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-md text-center p-4 sm:p-5 animate-fade-in w-full h-full select-none overflow-hidden">
+              <div className="bg-amber-500/10 p-2 sm:p-3 rounded-full border border-amber-500/30 text-amber-500 mb-2 sm:mb-2.5 animate-bounce shrink-0">
+                <Sparkles className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <h2 className="text-lg sm:text-2xl font-black text-amber-500 tracking-wide uppercase shrink-0">Kiên Trì Là Sức Mạnh! 🕊️</h2>
-              <p className="text-[11px] sm:text-sm text-slate-300 mt-1 mb-4 sm:mb-6 max-w-sm leading-relaxed px-2 shrink-0">
+              <h2 className="text-base sm:text-lg font-black text-amber-500 tracking-wide uppercase shrink-0">Kiên Trì Là Sức Mạnh! 🕊️</h2>
+              <p className="text-[9px] sm:text-[11px] text-slate-300 mt-1 mb-3 sm:mb-4 max-w-[260px] leading-relaxed px-1 shrink-0">
                 Bỏ cuộc hôm nay chỉ là một bước đệm giúp bạn tập trung và kiên trì hơn vào ngày mai. Đừng nản lòng nhé! Trí tuệ được rèn giũa qua từng thử thách, mỗi lần đối mặt với bảng số là một lần tâm trí bạn trở nên tinh thông hơn. Hẹn lần sau bạn chắc chắn sẽ vượt qua bản thân, chinh phục những nấc thang độ khó cao hơn!
               </p>
 
-              <div className="flex flex-col gap-2 w-full max-w-xs shrink-0">
+              <div className="flex flex-col gap-1.5 w-full max-w-[220px] shrink-0">
                 <button
                   id="givenup-retry-btn"
                   onClick={() => {
                     startNewGame(difficulty);
                     setIsGivenUp(false);
                   }}
-                  className="w-full py-2 sm:py-2.5 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/20"
+                  className="w-full py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 transition rounded-xl font-bold text-[10px] sm:text-xs text-white shadow-lg shadow-indigo-600/20 shrink-0"
                 >
                   Thử Sức Lại Ván Mới
                 </button>
@@ -1216,7 +1212,7 @@ export default function App() {
                     setShowStartScreen(true);
                     setIsGivenUp(false);
                   }}
-                  className="w-full py-1.5 sm:py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition rounded-xl font-medium text-xs text-slate-300"
+                  className="w-full py-1 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition rounded-xl font-medium text-[9px] sm:text-[10px] text-slate-300 shrink-0"
                 >
                   Thay Đổi Cấp Độ
                 </button>
