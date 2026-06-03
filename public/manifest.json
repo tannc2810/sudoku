@@ -1,0 +1,28 @@
+{
+  "short_name": "Sudoku",
+  "name": "Sudoku Game - Thư giãn đầu óc",
+  "description": "Chào mừng bạn bước vào trải nghiệm Sudoku thiền tịnh. Hãy lựa chọn cấp độ rèn luyện tâm trí phù hợp.",
+  "icons": [
+    {
+      "src": "./favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#090d16",
+  "background_color": "#090d16",
+  "orientation": "portrait"
+}
