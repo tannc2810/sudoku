@@ -1,6 +1,6 @@
 {
-  "name": "Remix: Sudoku",
-  "description": "A beautiful, fully interactive Sudoku game with multiple difficulties, cell highlights, notes mode, and auto-checking.",
+  "name": "Sudoku Game - Thư giãn đầu óc",
+  "description": "Chào mừng bạn bước vào trải nghiệm Sudoku thiền tịnh. Hãy lựa chọn cấp độ rèn luyện tâm trí phù hợp.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

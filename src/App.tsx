@@ -901,16 +901,16 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-between p-3 sm:p-6 select-none font-sans">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-between p-2 sm:p-6 select-none font-sans max-w-full overflow-x-hidden">
       {/* Upper Brand Header */}
-      <header className="w-full max-w-lg flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
-        <div className="flex items-center gap-2">
-          <div className="bg-indigo-600 p-2 rounded-xl text-white shadow-lg shadow-indigo-500/20">
-            <Brain className="w-6 h-6" />
+      <header className="w-full max-w-lg flex items-center justify-between border-b border-slate-800 pb-2 sm:pb-3 mb-2 sm:mb-3">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="bg-indigo-600 p-1.5 sm:p-2 rounded-xl text-white shadow-lg shadow-indigo-500/20">
+            <Brain className="w-5.5 h-5.5 sm:w-6 sm:h-6" />
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-black tracking-wider text-white">SUDOKU</h1>
-            <p className="text-[9px] sm:text-[11px] text-indigo-400 font-bold uppercase tracking-wider">GAME THƯ GIẢN ĐẦU ÓC</p>
+            <h1 className="text-lg sm:text-2xl font-black tracking-wider text-white leading-none">SUDOKU</h1>
+            <p className="text-[8px] sm:text-[11px] text-indigo-400 font-bold uppercase tracking-wider mt-0.5">GAME THƯ GIẢN ĐẦU ÓC</p>
           </div>
         </div>
 
@@ -958,7 +958,7 @@ export default function App() {
       </header>
 
       {/* Main Core Segment */}
-      <main className="w-full max-w-lg flex-1 flex flex-col justify-center items-center gap-4">
+      <main className="w-full max-w-lg flex-1 flex flex-col justify-center items-center gap-2.5 sm:gap-4">
         {/* Game Stats Bar */}
         <div className="w-full flex items-center justify-between text-xs sm:text-sm font-mono text-slate-400 px-1">
           <div className="flex items-center gap-2 bg-slate-900/50 py-1.5 px-3 rounded-full border border-slate-900">
@@ -1360,7 +1360,7 @@ export default function App() {
                   key={num}
                   id={`keypad-number-${num}`}
                   onClick={() => handleKeypadClick(num)}
-                  className={`py-2 sm:py-3 justify-center flex flex-col items-center text-lg sm:text-2xl font-black rounded-xl transition-all relative ${
+                  className={`py-1.5 sm:py-3 justify-center flex flex-col items-center text-lg sm:text-2xl font-black rounded-xl transition-all relative ${
                     isActiveHighlight
                       ? 'bg-indigo-600 border border-indigo-400 text-white cursor-pointer ring-2 ring-indigo-400 ring-offset-2 ring-offset-slate-950 scale-105'
                       : isFull 
@@ -1370,7 +1370,7 @@ export default function App() {
                 >
                   <span className={isActiveHighlight ? 'text-white' : isFull ? 'text-slate-600' : 'text-slate-100'}>{num}</span>
                   {/* Remaining places badge indicator */}
-                  <span className={`text-[10px] sm:text-xs font-mono font-bold leading-none mt-0.5 tracking-tight ${
+                  <span className={`text-[9px] sm:text-xs font-mono font-bold leading-none mt-0.5 tracking-tight ${
                     isActiveHighlight ? 'text-indigo-200' : isFull ? 'text-slate-700/80 font-normal' : 'text-indigo-400'
                   }`}>
                     ({remaining})
